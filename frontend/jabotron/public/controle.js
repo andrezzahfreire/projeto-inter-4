@@ -66,11 +66,11 @@ async function enviarGet(caminho) {
 							</button>
 						</div>
 						<div>
-							<button type="button" class="btn btn-lg btn-success" onclick="enviarGet('/movimento?v=_0050270!')">
+							<button type="button" class="btn btn-lg btn-success" onclick="enviarGet('/movimento?v=_0100270!')">
 								<i class="fas fa-fw fa-angle-left"></i>
 							</button><button type="button" class="btn btn-lg btn-secondary" onclick="enviarGet('/movimento?v=_0000000!')">
 								<i class="fas fa-fw fa-stop"></i>
-							</button><button type="button" class="btn btn-lg btn-warning" onclick="enviarGet('/movimento?v=_0050090!')">
+							</button><button type="button" class="btn btn-lg btn-warning" onclick="enviarGet('/movimento?v=_0100090!')">
 								<i class="fas fa-fw fa-angle-right"></i>
 							</button>
 						</div>

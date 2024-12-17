@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS solo (
 );
 """ 
 
+'''
 conn = get_db_connection()
 cursor = conn.cursor()
 cursor.execute(tabela_users)
@@ -69,4 +70,4 @@ cursor.execute(tabela_solo)
 
 conn.commit()
 conn.close()
-
+'''
