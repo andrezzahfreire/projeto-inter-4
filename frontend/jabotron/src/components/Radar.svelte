@@ -11,9 +11,9 @@
 
   const cardSize = 300;
   const margin = { top: 20, right: 20, bottom: 40, left: 20 };
-  const chartSize = cardSize - margin.top - margin.bottom;
+  const chartSize = cardSize - margin.top - margin.bottom - 60; 
   
-  const angleSlice = (Math.PI * 2) / data.length;
+  const angleSlice = Math.PI * 2 / data.length;
   const categories = ['Categoria1', 'Categoria2', 'Categoria3'];
   const colors = ['#D9B54A', '#F4511E', '#4CAF50'];
 
@@ -26,25 +26,25 @@
 
     const svgElement = d3.select(svg);
     const g = svgElement.append('g')
-      .attr('transform', `translate(${cardSize / 2}, ${margin.top + chartSize / 2})`);
+      .attr('transform', `translate(${cardSize/2}, ${margin.top + chartSize/2})`);
 
-    // Linhas de grade
+
     data.forEach((_, i) => {
       g.append('line')
         .attr('x1', 0)
         .attr('y1', 0)
-        .attr('x2', rScale(4) * Math.cos(angleSlice * i - Math.PI / 2))
-        .attr('y2', rScale(4) * Math.sin(angleSlice * i - Math.PI / 2))
+        .attr('x2', rScale(4) * Math.cos(angleSlice * i - Math.PI/2))
+        .attr('y2', rScale(4) * Math.sin(angleSlice * i - Math.PI/2))
         .style('stroke', '#ddd')
         .style('stroke-width', '1px');
     });
 
-    // Polígonos das categorias
+
     categories.forEach((category, idx) => {
       const points = data.map((d, i) => {
         const value = d[category];
-        const x = rScale(value) * Math.cos(angleSlice * i - Math.PI / 2);
-        const y = rScale(value) * Math.sin(angleSlice * i - Math.PI / 2);
+        const x = rScale(value) * Math.cos(angleSlice * i - Math.PI/2);
+        const y = rScale(value) * Math.sin(angleSlice * i - Math.PI/2);
         return [x, y];
       });
 
@@ -56,11 +56,11 @@
         .style('stroke-width', '2px');
     });
 
-    // Rótulos do eixo
+
     data.forEach((d, i) => {
       g.append('text')
-        .attr('x', rScale(4.5) * Math.cos(angleSlice * i - Math.PI / 2))
-        .attr('y', rScale(4.5) * Math.sin(angleSlice * i - Math.PI / 2))
+        .attr('x', rScale(4.5) * Math.cos(angleSlice * i - Math.PI/2))
+        .attr('y', rScale(4.5) * Math.sin(angleSlice * i - Math.PI/2))
         .attr('dy', '0.35em')
         .style('text-anchor', 'middle')
         .style('font-size', '10px')
@@ -96,21 +96,21 @@
     background-color: white;
     border-radius: 30px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin: 1rem;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
+    margin: 1rem;
   }
 
   h2 {
     font-size: 16px;
-    font-weight: bold;
-    color: #2d5a4c;
-    margin-bottom: 1rem;
+      font-weight: bold;
+      color: #2d5a4c;
+      margin: 8px;
+      margin-left: 1rem;
+      white-space: nowrap;
   }
 
   .chart-container {
+    flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -120,7 +120,7 @@
     display: flex;
     justify-content: center;
     gap: 0.5rem;
-    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
   }
 
   .legend-item {
