@@ -1,50 +1,143 @@
 <script>
-    import { onMount } from 'svelte';
-    import * as d3 from 'd3';
-    import { writable } from 'svelte/store';
+    import { onMount } from "svelte";
+    import * as d3 from "d3";
+    import { writable } from "svelte/store";
 
+    // Função para gerar valores aleatórios dentro de uma faixa
+    function generateRandomData(base, variance) {
+        return base + Math.floor(Math.random() * variance * 2) - variance;
+    }
+
+    // Dados semanais
     const weeklyData = [
-        { year: 2024.0, weekday: 'Segunda', Nitrogênio: 38, Fósforo: 48, Potássio: 43 },
-        { year: 2024.2, weekday: 'Terça', Nitrogênio: 39, Fósforo: 49, Potássio: 44 },
-        { year: 2024.4, weekday: 'Quarta', Nitrogênio: 40, Fósforo: 50, Potássio: 45 },
-        { year: 2024.6, weekday: 'Quinta', Nitrogênio: 41, Fósforo: 51, Potássio: 46 },
-        { year: 2024.8, weekday: 'Sexta', Nitrogênio: 42, Fósforo: 52, Potássio: 47 }
+        {
+            year: 2024.0,
+            weekday: "Segunda",
+            Nitrogênio: generateRandomData(30, 5),
+            Fósforo: generateRandomData(40, 5),
+            Potássio: generateRandomData(35, 5),
+        },
+        {
+            year: 2024.2,
+            weekday: "Terça",
+            Nitrogênio: generateRandomData(32, 5),
+            Fósforo: generateRandomData(41, 5),
+            Potássio: generateRandomData(37, 5),
+        },
+        {
+            year: 2024.4,
+            weekday: "Quarta",
+            Nitrogênio: generateRandomData(33, 5),
+            Fósforo: generateRandomData(43, 5),
+            Potássio: generateRandomData(39, 5),
+        },
+        {
+            year: 2024.6,
+            weekday: "Quinta",
+            Nitrogênio: generateRandomData(34, 5),
+            Fósforo: generateRandomData(44, 5),
+            Potássio: generateRandomData(40, 5),
+        },
+        {
+            year: 2024.8,
+            weekday: "Sexta",
+            Nitrogênio: generateRandomData(35, 5),
+            Fósforo: generateRandomData(45, 5),
+            Potássio: generateRandomData(42, 5),
+        },
     ];
 
+    // Dados mensais
     const monthlyData = [
-        { year: 2020, month: 'Jan', Nitrogênio: 20, Fósforo: 30, Potássio: 25 },
-        { year: 2021, month: 'Mar', Nitrogênio: 25, Fósforo: 35, Potássio: 30 },
-        { year: 2022, month: 'Jun', Nitrogênio: 30, Fósforo: 40, Potássio: 35 },
-        { year: 2023, month: 'Set', Nitrogênio: 35, Fósforo: 45, Potássio: 40 },
-        { year: 2024, month: 'Dez', Nitrogênio: 40, Fósforo: 50, Potássio: 45 }
+        {
+            year: 2020,
+            month: "Jan",
+            Nitrogênio: generateRandomData(28, 5),
+            Fósforo: generateRandomData(35, 5),
+            Potássio: generateRandomData(30, 5),
+        },
+        {
+            year: 2021,
+            month: "Mar",
+            Nitrogênio: generateRandomData(32, 5),
+            Fósforo: generateRandomData(38, 5),
+            Potássio: generateRandomData(33, 5),
+        },
+        {
+            year: 2022,
+            month: "Jun",
+            Nitrogênio: generateRandomData(35, 5),
+            Fósforo: generateRandomData(41, 5),
+            Potássio: generateRandomData(37, 5),
+        },
+        {
+            year: 2023,
+            month: "Set",
+            Nitrogênio: generateRandomData(38, 5),
+            Fósforo: generateRandomData(45, 5),
+            Potássio: generateRandomData(40, 5),
+        },
+        {
+            year: 2024,
+            month: "Dez",
+            Nitrogênio: generateRandomData(42, 5),
+            Fósforo: generateRandomData(48, 5),
+            Potássio: generateRandomData(43, 5),
+        },
     ];
 
+    // Dados trimestrais
     const quarterlyData = [
-        { year: 2023.0, quarter: '1º Tri', Nitrogênio: 32, Fósforo: 42, Potássio: 37 },
-        { year: 2023.25, quarter: '2º Tri', Nitrogênio: 34, Fósforo: 44, Potássio: 39 },
-        { year: 2023.5, quarter: '3º Tri', Nitrogênio: 36, Fósforo: 46, Potássio: 41 },
+        {
+            year: 2023.0,
+            quarter: "1º Tri",
+            Nitrogênio: generateRandomData(34, 5),
+            Fósforo: generateRandomData(42, 5),
+            Potássio: generateRandomData(36, 5),
+        },
+        {
+            year: 2023.25,
+            quarter: "2º Tri",
+            Nitrogênio: generateRandomData(36, 5),
+            Fósforo: generateRandomData(44, 5),
+            Potássio: generateRandomData(38, 5),
+        },
+        {
+            year: 2023.5,
+            quarter: "3º Tri",
+            Nitrogênio: generateRandomData(38, 5),
+            Fósforo: generateRandomData(46, 5),
+            Potássio: generateRandomData(41, 5),
+        },
+        {
+            year: 2023.75,
+            quarter: "4º Tri",
+            Nitrogênio: generateRandomData(40, 5),
+            Fósforo: generateRandomData(48, 5),
+            Potássio: generateRandomData(43, 5),
+        },
     ];
 
     const lineData = [
         { name: "Nitrogênio", color: "#b3e5fc" },
         { name: "Fósforo", color: "#ffe0b2" },
-        { name: "Potássio", color: "#ffccbc" }
+        { name: "Potássio", color: "#ffccbc" },
     ];
 
     let svgElement;
     let chartContainer;
-    const interval = writable('mensalmente');
+    const interval = writable("mensalmente");
     let currentData = monthlyData;
     let resizeObserver;
 
     function getLabelForAxis(interval) {
-        switch(interval) {
-            case 'semanalmente':
-                return d => d.weekday;
-            case 'mensalmente':
-                return d => d.month;
-            case 'trimestralmente':
-                return d => d.quarter;
+        switch (interval) {
+            case "semanalmente":
+                return (d) => d.weekday;
+            case "mensalmente":
+                return (d) => d.month;
+            case "trimestralmente":
+                return (d) => d.quarter;
         }
     }
 
@@ -52,15 +145,15 @@
         if (!chartContainer) return;
 
         const selectedInterval = $interval;
-        
-        switch(selectedInterval) {
-            case 'semanalmente':
+
+        switch (selectedInterval) {
+            case "semanalmente":
                 currentData = weeklyData;
                 break;
-            case 'mensalmente':
+            case "mensalmente":
                 currentData = monthlyData;
                 break;
-            case 'trimestralmente':
+            case "trimestralmente":
                 currentData = quarterlyData;
                 break;
         }
@@ -72,7 +165,7 @@
             top: 20,
             right: containerWidth <= 750 ? 40 : 120,
             bottom: 60,
-            left: containerWidth <= 750 ? 30 : 40
+            left: containerWidth <= 750 ? 30 : 40,
         };
 
         const width = containerWidth;
@@ -82,21 +175,27 @@
 
         d3.select(svgElement).selectAll("*").remove();
 
-        const svg = d3.select(svgElement)
+        const svg = d3
+            .select(svgElement)
             .attr("width", width)
             .attr("height", height)
             .append("g")
             .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
         // Escalas
-        const xScale = d3.scalePoint()
+        const xScale = d3
+            .scalePoint()
             .domain(currentData.map(getLabelForAxis(selectedInterval)))
             .range([0, chartWidth]);
 
-        const yScale = d3.scaleLinear()
-            .domain([0, d3.max(currentData, d => 
-                Math.max(d.Nitrogênio, d.Fósforo, d.Potássio)
-            ) + 5])
+        const yScale = d3
+            .scaleLinear()
+            .domain([
+                0,
+                d3.max(currentData, (d) =>
+                    Math.max(d.Nitrogênio, d.Fósforo, d.Potássio),
+                ) + 5,
+            ])
             .range([chartHeight, 0]);
 
         // Eixos
@@ -104,7 +203,7 @@
             .attr("transform", `translate(0, ${chartHeight})`)
             .call(d3.axisBottom(xScale))
             .style("font-size", containerWidth < 480 ? "8px" : "10px")
-            .selectAll("text")  
+            .selectAll("text")
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
@@ -115,19 +214,21 @@
             .style("font-size", containerWidth < 480 ? "8px" : "10px");
 
         // Gerador de linhas
-        const lineGenerator = d3.line()
+        const lineGenerator = d3
+            .line()
             .curve(d3.curveCatmullRom)
-            .x(d => xScale(getLabelForAxis(selectedInterval)(d)))
-            .y(d => yScale(d.value));
+            .x((d) => xScale(getLabelForAxis(selectedInterval)(d)))
+            .y((d) => yScale(d.value));
 
         // Adiciona as linhas com animação
-        lineData.forEach(line => {
-            const lineDataPoints = currentData.map(d => ({
+        lineData.forEach((line) => {
+            const lineDataPoints = currentData.map((d) => ({
                 ...d,
-                value: d[line.name]
+                value: d[line.name],
             }));
 
-            const path = svg.append("path")
+            const path = svg
+                .append("path")
                 .datum(lineDataPoints)
                 .attr("class", "line")
                 .attr("d", lineGenerator)
@@ -138,8 +239,7 @@
 
             // Animação da linha
             const pathLength = path.node().getTotalLength();
-            path
-                .attr("stroke-dasharray", pathLength + " " + pathLength)
+            path.attr("stroke-dasharray", pathLength + " " + pathLength)
                 .attr("stroke-dashoffset", pathLength)
                 .transition()
                 .duration(1000)
@@ -149,10 +249,11 @@
             // Adiciona pontos
             svg.selectAll(`.point-${line.name}`)
                 .data(lineDataPoints)
-                .enter().append("circle")
+                .enter()
+                .append("circle")
                 .attr("class", `point-${line.name}`)
-                .attr("cx", d => xScale(getLabelForAxis(selectedInterval)(d)))
-                .attr("cy", d => yScale(d[line.name]))
+                .attr("cx", (d) => xScale(getLabelForAxis(selectedInterval)(d)))
+                .attr("cy", (d) => yScale(d[line.name]))
                 .attr("r", containerWidth < 480 ? 2 : 3)
                 .style("fill", line.color)
                 .style("stroke", "white")
@@ -161,19 +262,23 @@
 
         // Legenda
         if (containerWidth > 750) {
-            const legend = svg.append("g")
+            const legend = svg
+                .append("g")
                 .attr("class", "legend")
                 .attr("transform", `translate(${chartWidth + 10}, 0)`);
 
             lineData.forEach((line, i) => {
-                const legendItem = legend.append("g")
+                const legendItem = legend
+                    .append("g")
                     .attr("transform", `translate(0, ${i * 20})`);
 
-                legendItem.append("circle")
+                legendItem
+                    .append("circle")
                     .attr("r", 5)
                     .style("fill", line.color);
 
-                legendItem.append("text")
+                legendItem
+                    .append("text")
                     .attr("x", 10)
                     .attr("y", 0)
                     .attr("dy", ".35em")
@@ -291,7 +396,8 @@
         background-size: 16px;
     }
 
-    .select-styled:hover, .select-styled:focus {
+    .select-styled:hover,
+    .select-styled:focus {
         border-color: #4caf50;
         box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
         outline: none;

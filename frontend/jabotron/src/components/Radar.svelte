@@ -3,10 +3,10 @@
   import * as d3 from 'd3';
 
   const data = [
-    { axis: "30 Dias", Categoria1: 3, Categoria2: 2, Categoria3: 1 },
-    { axis: "45 Dias", Categoria1: 2, Categoria2: 2, Categoria3: 3 },
-    { axis: "0 Dias", Categoria1: 2, Categoria2: 4, Categoria3: 2 },
-    { axis: "15 Dias", Categoria1: 3, Categoria2: 2, Categoria3: 3 },
+    { axis: "30 Dias", Fósforo: 3, Potássio: 2, Nitrogênio: 1 },
+    { axis: "45 Dias", Fósforo: 2, Potássio: 2, Nitrogênio: 3 },
+    { axis: "0 Dias", Fósforo: 2, Potássio: 4, Nitrogênio: 2 },
+    { axis: "15 Dias", Fósforo: 3, Potássio: 2, Nitrogênio: 3 },
   ];
 
   const cardSize = 300;
@@ -14,7 +14,7 @@
   const chartSize = cardSize - margin.top - margin.bottom - 60; 
   
   const angleSlice = Math.PI * 2 / data.length;
-  const categories = ['Categoria1', 'Categoria2', 'Categoria3'];
+  const categories = ['Fósforo', 'Potássio', 'Nitrogênio'];
   const colors = ['#D9B54A', '#F4511E', '#4CAF50'];
 
   let svg;
